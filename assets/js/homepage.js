@@ -1,7 +1,15 @@
+/* ------------------------- */
+/* Project  : Git It Done    */
+/* File     : homepage.js    */
+/* Author   : Vicente Garcia */
+/* Date     : 03/07/2022     */
+/* Modified : 03/12/2022     */
+/* ------------------------- */
 var userFormEl = document.querySelector("#user-form");
 var nameInputEl = document.querySelector("#username");
 var repoContainerEl = document.querySelector("#repos-container");
 var repoSearchTerm = document.querySelector("#repo-search-term");
+var languageButtonsEl = document.querySelector("#language-buttons");
 var displayRepos = function(repos, searchTerm){
     repoContainerEl.textContent = "";
     repoSearchTerm.textContent = searchTerm;
@@ -67,4 +75,26 @@ var getUserRepos = function(user) {
         alert("Unable to connect to GitHub");
     });
 };
+var getFeaturedRepos = function(language){
+    var apiUrl = "https://api.github.com/search/repositories?q=" + language + "+is:featured&sort=help-wanted-issues";
+    fetch(apiUrl).then(function(response) {
+        if (response.ok) {
+            response.json().then(function(data) {
+                displayRepos(data.items, language);
+            });
+        }else{
+            alert('Error: GitHub User Not Found');
+        }
+    });
+};
+var buttonClickHandler = function(event){
+    console.log("ENTRA");
+    var language = event.target.getAttribute("data-language");
+    if (language){
+        getFeaturedRepos(language);
+        // Clear old content
+        repoContainerEl.textContent = "";
+    };
+};
+languageButtonsEl.addEventListener("click", buttonClickHandler);
 userFormEl.addEventListener("submit", formSubmitHandler);

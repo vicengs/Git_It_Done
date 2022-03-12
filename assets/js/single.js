@@ -1,3 +1,10 @@
+/* ------------------------- */
+/* Project  : Git It Done    */
+/* File     : single.js      */
+/* Author   : Vicente Garcia */
+/* Date     : 03/10/2022     */
+/* Modified : 03/12/2022     */
+/* ------------------------- */
 var issueContainerEl = document.querySelector("#issues-container");
 var limitWarningEl = document.querySelector("#limit-warning");
 var repoNameEl = document.querySelector("#repo-name");
